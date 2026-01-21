@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026春节生肖测算</title>
+    <style>
+        /* 春节主题样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "微软雅黑", sans-serif;
+            background: linear-gradient(#fdf2e8, #f8e1c0);
+            padding: 20px;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(255, 153, 0, 0.15);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #d43f3a; /* 春节红 */
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 15px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ffcc80;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+        }
+        .input-group input:focus {
+            border-color: #ff9800;
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #d43f3a;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        button:hover {
+            background: #c82333;
+        }
+        .result {
+            text-align: center;
+            padding: 20px;
+            background: #fff8e8;
+            border-radius: 10px;
+            display: none;
+        }
+        .result h3 {
+            color: #d43f3a;
+            margin-bottom: 10px;
+        }
+        .result p {
+            color: #333;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        .zodiac-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🐲 2026春节生肖测算 🧧</h1>
+            <p>输入出生年份，测算你的生肖和2026年运势小提示</p>
+        </div>
+
+        <div class="input-group">
+            <label for="birthYear">请输入你的出生年份（如：1990）：</label>
+            <input type="number" id="birthYear" placeholder="例：1990" min="1900" max="2026">
+        </div>
+
+        <button id="calcBtn">立即测算</button>
+
+        <div class="result" id="resultBox">
+            <div class="zodiac-icon" id="zodiacIcon">🐇</div>
+            <h3 id="zodiacName">你的生肖是：兔</h3>
+            <p id="fortuneTip">2026年（马年）你的运势小提示：... </p>
+        </div>
+    </div>
+
+    <script>
+        // 生肖数组（按鼠、牛、虎、兔、龙、蛇、马、羊、猴、鸡、狗、猪排序）
+        const zodiacs = [
+            { name: "鼠", icon: "🐭", tip: "2026马年，属鼠的你贵人运不错，适合拓展人脉～" },
+            { name: "牛", icon: "🐂", tip: "2026马年，属牛的你财运平稳，宜稳扎稳打～" },
+            { name: "虎", icon: "🐯", tip: "2026马年，属虎的你事业有小突破，注意劳逸结合～" },
+            { name: "兔", icon: "🐇", tip: "2026马年，属兔的你桃花运UP，把握机会哦～" },
+            { name: "龙", icon: "🐲", tip: "2026马年，属龙的你运势上扬，适合尝试新计划～" },
+            { name: "蛇", icon: "🐍", tip: "2026马年，属蛇的你偏财不错，理性理财更重要～" },
+            { name: "马", icon: "🐴", tip: "2026马年，属马的你本命年，平安是福，稳字当头～" },
+            { name: "羊", icon: "🐑", tip: "2026马年，属羊的你家庭运佳，多陪伴家人～" },
+            { name: "猴", icon: "🐒", tip: "2026马年，属猴的你学业/事业有进步，继续加油～" },
+            { name: "鸡", icon: "🐔", tip: "2026马年，属鸡的你健康运好，适合适度运动～" },
+            { name: "狗", icon: "🐶", tip: "2026马年，属狗的你人际运佳，贵人相助～" },
+            { name: "猪", icon: "🐷", tip: "2026马年，属猪的你财运亨通，合理规划开支～" }
+        ];
+
+        // 获取DOM元素
+        const birthYearInput = document.getElementById('birthYear');
+        const calcBtn = document.getElementById('calcBtn');
+        const resultBox = document.getElementById('resultBox');
+        const zodiacIcon = document.getElementById('zodiacIcon');
+        const zodiacName = document.getElementById('zodiacName');
+        const fortuneTip = document.getElementById('fortuneTip');
+
+        // 测算按钮点击事件
+        calcBtn.addEventListener('click', () => {
+            const birthYear = parseInt(birthYearInput.value);
+            
+            // 验证输入
+            if (isNaN(birthYear) || birthYear < 1900 || birthYear > 2026) {
+                alert('请输入1900-2026之间的有效年份！');
+                return;
+            }
+
+            // 计算生肖（生肖按12年一轮，1900年为鼠年）
+            const zodiacIndex = (birthYear - 1900) % 12;
+            const zodiac = zodiacs[zodiacIndex];
+
+            // 显示结果
+            zodiacIcon.textContent = zodiac.icon;
+            zodiacName.textContent = `你的生肖是：${zodiac.name}`;
+            fortuneTip.textContent = zodiac.tip;
+            resultBox.style.display = 'block';
+
+            // 滚动到结果区域
+            resultBox.scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
