@@ -96,7 +96,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Enter your birth year → Find your Chinese zodiac sign! </h1>
+            <h1>What's your Chinese zodiac? </h1>
             <p>Enter your birth year → Find your Chinese zodiac sign!</p>
         </div>
 
@@ -105,7 +105,7 @@
             <input type="number" id="birthYear" placeholder="例：1990" min="1900" max="2026">
         </div>
 
-        <button id="calcBtn">立即测算</button>
+        <button id="calcBtn">Check Your Zodiac Now!</button>
 
         <div class="result" id="resultBox">
             <div class="zodiac-icon" id="zodiacIcon">🐇</div>
@@ -117,18 +117,18 @@
     <script>
         // 生肖数组（按鼠、牛、虎、兔、龙、蛇、马、羊、猴、鸡、狗、猪排序）
         const zodiacs = [
-            { name: "鼠", icon: "🐭", tip: "2026马年，属鼠的你贵人运不错，适合拓展人脉～" },
-            { name: "牛", icon: "🐂", tip: "2026马年，属牛的你财运平稳，宜稳扎稳打～" },
-            { name: "虎", icon: "🐯", tip: "2026马年，属虎的你事业有小突破，注意劳逸结合～" },
-            { name: "兔", icon: "🐇", tip: "2026马年，属兔的你桃花运UP，把握机会哦～" },
-            { name: "龙", icon: "🐲", tip: "2026马年，属龙的你运势上扬，适合尝试新计划～" },
-            { name: "蛇", icon: "🐍", tip: "2026马年，属蛇的你偏财不错，理性理财更重要～" },
-            { name: "马", icon: "🐴", tip: "2026马年，属马的你本命年，平安是福，稳字当头～" },
-            { name: "羊", icon: "🐑", tip: "2026马年，属羊的你家庭运佳，多陪伴家人～" },
-            { name: "猴", icon: "🐒", tip: "2026马年，属猴的你学业/事业有进步，继续加油～" },
-            { name: "鸡", icon: "🐔", tip: "2026马年，属鸡的你健康运好，适合适度运动～" },
-            { name: "狗", img: "https://github.com/AngieYu/zodiac-calc/blob/main/gou.jpg.jpg", tip: "2026马年，属狗的你人际运佳，贵人相助～" },
-            { name: "猪", icon: "🐷", tip: "2026马年，属猪的你财运亨通，合理规划开支～" }
+            { name: "Rat", icon: "🐭", tip: "2026马年，属鼠的你贵人运不错，适合拓展人脉～" },
+            { name: "Ox", icon: "🐂", tip: "2026马年，属牛的你财运平稳，宜稳扎稳打～" },
+            { name: "Tiger", icon: "🐯", tip: "2026马年，属虎的你事业有小突破，注意劳逸结合～" },
+            { name: "Rabbit", icon: "🐇", tip: "2026马年，属兔的你桃花运UP，把握机会哦～" },
+            { name: "Loong", icon: "🐲", tip: "2026马年，属龙的你运势上扬，适合尝试新计划～" },
+            { name: "Snake", icon: "🐍", tip: "2026马年，属蛇的你偏财不错，理性理财更重要～" },
+            { name: "Horse", icon: "🐴", tip: "2026马年，属马的你本命年，平安是福，稳字当头～" },
+            { name: "Goat", icon: "🐑", tip: "2026马年，属羊的你家庭运佳，多陪伴家人～" },
+            { name: "Monkey", icon: "🐒", tip: "2026马年，属猴的你学业/事业有进步，继续加油～" },
+            { name: "Rooster", icon: "🐔", tip: "2026马年，属鸡的你健康运好，适合适度运动～" },
+            { name: "Dog", img: "https://github.com/AngieYu/zodiac-calc/blob/main/gou.jpg.jpg", tip: "2026马年，属狗的你人际运佳，贵人相助～" },
+            { name: "Pig", icon: "🐷", tip: "2026马年，属猪的你财运亨通，合理规划开支～" }
         ];
 
         // 获取DOM元素
